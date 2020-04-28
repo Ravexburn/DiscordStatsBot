@@ -12,12 +12,13 @@ Used in Tournaments to keep track of personal team(?) and player stats.
 
 ## Possible Data Models
 
-| Model          | Stat  | Stat   | Stat    | Stat   | stat |
-|----------------|-------|--------|---------|--------|------|
-| LeaguePlayer   | Kills | Deaths | Assists | CS/Min |vision|
-| ValorantPlayer | Kills | Deaths | Assists |    ??? | ???  |
-| LeagueTeam     | Kills | Deaths | Assists |Kills/Min|???  |
-| ValorantTeam   | Kills | Deaths | Assists | ???    | ???  | 
+| Model          | Attribute  | Attribute   | Attribute |
+|----------------|------------|-------------|-----------|
+| LeaguePlayer   | Kills      | Deaths      | Assists   | 
+| ValorantPlayer | Kills      | Deaths      | Assists   |
+| LeagueTeam     | Kills      | Deaths      | Assists   |
+| ValorantTeam   | Kills      | Deaths      | Assists   | 
+| User           | LeagueID   | ValorantID  | DiscordID | 
 
 ## Dev Todo
 - empty for now
