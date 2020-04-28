@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+cconst Discord = require("discord.js");
 
 module.exports = (bot = Discord.Client) => {
 
@@ -88,7 +88,7 @@ module.exports = (bot = Discord.Client) => {
 				tocHelp(message, embed);
 				break;
 			case 1:
-				playerHelp(message, prefix, embed);
+				playerCardHelp(message, prefix, embed);
 				break;
 			case 2:
 				playerModHelp(message, prefix, embed);
@@ -116,7 +116,7 @@ module.exports = (bot = Discord.Client) => {
 
 	tocHelp = async function tocHelp(message, embed) {
 		embed.setDescription("**Table of Contents**");
-		embed.addField("Page 1", "Player Stats Help");
+		embed.addField("Page 1", "Player Card Help");
 		embed.addField("Page 2", "Player Stats Mod Help");
 		embed.addField("Page 3", "Team Stats Help");
 		embed.addField("Page 4", "Team Stats Mod Help");
@@ -126,40 +126,40 @@ module.exports = (bot = Discord.Client) => {
 
 	// Player help
 
-	playerHelp = async function playerHelp(message, prefix, embed) {
-		embed.addField(`${prefix}ps [Player Name | User ID | Mention]`, "Shows stats for a player.");
+	playerCardHelp = async function playerCardHelp(message, prefix, embed) {
+		embed.addField(`${prefix}pc [Player Name | User ID | Mention]`, "Shows stats for a player.");
 
 	}
 
 	playerModHelp = async function playerModHelp(message, prefix, embed) {
-		embed.addField(`${prefix}ps add [User ID | Mention]`, "Adds a player to the stats page. (Mod Only)");
-		embed.addField(`${prefix}ps remove [User ID | Mention]`, "Removes a player from the stats page. (Mod Only)");
-		embed.addField(`${prefix}ps edit [User ID | Mention]`, "Edits a player's info. (Mod Only)");
+		embed.addField(`${prefix}pc add [User ID | Mention]`, "Adds a player to the stats page. (Mod Only)");
+		embed.addField(`${prefix}pc remove [User ID | Mention]`, "Removes a player from the stats page. (Mod Only)");
+		embed.addField(`${prefix}pc edit [User ID | Mention]`, "Edits a player's info. (Mod Only)");
 
 	}
 
 
 	teamHelp = async function teamHelp(message, prefix, embed) {
-		embed.addField(`${prefix}ps team [Team Name]`, "Shows stats for a team.");
+		embed.addField(`${prefix}tc [Team Name]`, "Shows stats for a team.");
 
 	}
 
 	teamModHelp = async function teamModHelp(message, prefix, embed) {
-		embed.addField(`${prefix}ps add team [Team Name]`, "Adds a team to the stats page. (Mod Only)");
-		embed.addField(`${prefix}ps remove team [Team Name]`, "Removes a team from the stats page. (Mod Only)");
-		embed.addField(`${prefix}ps edit team [Team Name]`, "Edits a team's info. (Mod Only)");
+		embed.addField(`${prefix}tc add [Team Name]`, "Adds a team to the stats page. (Mod Only)");
+		embed.addField(`${prefix}tc remove [Team Name]`, "Removes a team from the stats page. (Mod Only)");
+		embed.addField(`${prefix}tc edit [Team Name]`, "Edits a team's info. (Mod Only)");
 
 	}
 
 	tournHelp = async function tournHelp(message, prefix, embed) {
-		embed.addField(`${prefix}ps tournament [Tournament Name]`, "Shows stats for a tournament.");
+		embed.addField(`${prefix}tourney [Tournament Name]`, "Shows stats for a tournament.");
 
 	}
 
 	tournModHelp = async function tournModHelp(message, prefix, embed) {
-		embed.addField(`${prefix}ps add tournament [Tournament Name]`, "Adds a player to the stats page. (Mod Only)");
-		embed.addField(`${prefix}ps remove tournament [Tournament Name]`, "Adds a player to the stats page. (Mod Only)");
-		embed.addField(`${prefix}ps edit tournament [Tournament Name]`, "Adds a player to the stats page. (Mod Only)");
+		embed.addField(`${prefix}tourney add [Tournament Name]`, "Adds a player to the stats page. (Mod Only)");
+		embed.addField(`${prefix}tourney remove [Tournament Name]`, "Adds a player to the stats page. (Mod Only)");
+		embed.addField(`${prefix}tourney edit [Tournament Name]`, "Adds a player to the stats page. (Mod Only)");
 
 	}
 
