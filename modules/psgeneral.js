@@ -6,6 +6,7 @@ module.exports = (bot = Discord.Client) => {
 	require("../modules/playercard.js")(bot);
 	require("../modules/psadd.js")(bot);
 	require("../modules/psremove.js")(bot);
+	require("../modules/teamcard.js")(bot);
 
 	psGeneral = async function psGeneral(message) {
 		let messageArray = message.content.split(" ");
@@ -13,46 +14,21 @@ module.exports = (bot = Discord.Client) => {
 		let args = messageArray.slice(1);
 		let prefix = bot.botSettings.prefix;
 
-		if ((command === `${prefix}ps`) || (command === `${prefix}playerstats`) || (command === `${prefix}help`)) {
-			psFunc(message, prefix, args);
-			return null;
+		if ((command === `${prefix}help`)) {
+			psHelp(message, prefix);
+			return;
 		}
 
-		if ((command === `${prefix}playercard`) || (command === `${prefix}pc`)) {
+		if ((command === `${prefix}pc`) || (command === `${prefix}playercard`)) {
 			playerCard(message);
-			return null;
+			return;
 		}
 
+		if ((command === `${prefix}tc`) || (command === `${prefix}teamcard`)) {
+			teamCard(message);
+			return;
+		}
 	}
 
 	return;
-};
-
-
-psFunc = async function psFunc(message, prefix, args) {
-	if (args.length === 0) {
-		psHelp(message, prefix);
-		return null;
-	}
-
-	// this is the command the bot was issued
-	const command = args[0]
-
-	// uses a different function depending on the case
-	switch (command) {
-		case "help":
-			psHelp(message, prefix);
-			break;
-
-		case "add":
-			message.channel.send("test");
-			break;
-
-		default:
-			psHelp(message, prefix);
-			return;
-
-	}
-
-	return null;
 };
