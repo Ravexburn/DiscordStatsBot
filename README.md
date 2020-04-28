@@ -20,7 +20,5 @@ Used in Tournaments to keep track of personal team(?) and player stats.
 | ValorantTeam   | Kills      | Deaths      | Assists   | 
 | User           | LeagueID   | ValorantID  | DiscordID | 
 
-## Dev Todo
-- empty for now
 
 Written by Rave#0737 and Edwin#0214 
