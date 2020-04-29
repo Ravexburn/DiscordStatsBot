@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const TeemoJS = require('teemojs')
+const champMap = require('./leagueChampMap.json')
 
 module.exports = (bot = Discord.Client) => {
 
@@ -25,7 +27,7 @@ module.exports = (bot = Discord.Client) => {
 
 	}
 
-	return;
+	return null
 };
 
 
@@ -50,7 +52,7 @@ psFunc = async function psFunc(message, prefix, args) {
 
 		default:
 			psHelp(message, prefix);
-			return;
+			return null;
 
 	}
 
