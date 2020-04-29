@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
+// ignored below
 const botSettings = require("./botsettings.json");
 const bot = new Discord.Client({ disableEveryone: true, messageCacheMaxSize: 100 });
+// appending botsettings json to bot object 
 bot.botSettings = botSettings;
 
 //Required Files

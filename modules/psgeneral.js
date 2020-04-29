@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const TeemoJS = require('teemojs')
+const champMap = require('./leagueChampMap.json')
 
 module.exports = (bot = Discord.Client) => {
 
@@ -15,27 +17,31 @@ module.exports = (bot = Discord.Client) => {
 
 		if ((command === `${prefix}ps`) || (command === `${prefix}playerstats`) || (command === `${prefix}help`)) {
 			psFunc(message, prefix, args);
-			return;
+			return null;
 		}
 
 		if ((command === `${prefix}playercard`) || (command === `${prefix}pc`)) {
 			playerCard(message);
-			return;
+			return null;
 		}
 
 	}
 
-	return;
+	return null
 };
 
 
 psFunc = async function psFunc(message, prefix, args) {
 	if (args.length === 0) {
 		psHelp(message, prefix);
-		return;
+		return null;
 	}
 
-	switch (args[0]) {
+	// this is the command the bot was issued
+	const command = args[0]
+
+	// uses a different function depending on the case
+	switch (command) {
 		case "help":
 			psHelp(message, prefix);
 			break;
@@ -46,9 +52,9 @@ psFunc = async function psFunc(message, prefix, args) {
 
 		default:
 			psHelp(message, prefix);
-			return;
+			return null;
 
 	}
 
-	return;
+	return null;
 };
