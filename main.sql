@@ -1,21 +1,21 @@
 CREATE TABLE Users(
     id INTEGER PRIMARY KEY,
-    discordId BIGINT NOT NULL,
+    discordID BIGINT NOT NULL,
     summonerName TEXT
 );
 
 CREATE TABLE ServerSettings(
     id INTEGER PRIMARY KEY,
-    discordId BIGINT NOT NULL,
+    discordID BIGINT NOT NULL,
     prefix TEXT
 );
 
 CREATE TABLE ModUsers(
     id INTEGER PRIMARY KEY,
-    userId BIGINT NOT NULL,
-    serverId BIGINT NOT NULL,
-    FOREIGN KEY(userId) REFERENCES Users(id),
-    FOREIGN KEY(serverId) REFERENCES ServerSettings(id)
+    userID BIGINT NOT NULL,
+    serverID BIGINT NOT NULL,
+    FOREIGN KEY(userID) REFERENCES Users(id),
+    FOREIGN KEY(serverID) REFERENCES ServerSettings(id)
 );
 
 CREATE TABLE Tournaments(
@@ -31,21 +31,21 @@ CREATE TABLE Teams(
 -- teams in a tournament
 CREATE TABLE TournamentTeams(
     id INTEGER NOT NULL PRIMARY KEY,
-    teamId INTEGER NOT NULL,
-    tournamentId INTEGER NOT NULL
+    teamID INTEGER NOT NULL,
+    tournamentID INTEGER NOT NULL
 );
 
 -- tracks a players stats in a specific tournament
 CREATE TABLE TournamentLeagueStats(
     id INTEGER PRIMARY KEY,
-    userId BIGINT NOT NULL,
-    tournamentId INTEGER NOT NULL,
+    userID BIGINT NOT NULL,
+    tournamentID INTEGER NOT NULL,
     totalTournamentKills INTEGER,
     totalTournamentDeaths INTEGER,
     totalTournamentAssists INTEGER,
     totalGameCount INTEGER,
-    FOREIGN KEY (tournamentId) REFERENCES Tournaments(id),
-    FOREIGN KEY (userId) REFERENCES Users(id)
+    FOREIGN KEY (tournamentID) REFERENCES Tournaments(id),
+    FOREIGN KEY (userID) REFERENCES Users(id)
 );
 
 -- regular team roster
@@ -61,8 +61,8 @@ CREATE TABLE TournamentLeagueTeams(
     sub1 BIGINT,
     sub2 BIGINT,
     sub3 BIGINT,
-    FOREIGN KEY(teamId) REFERENCES TournamentTeams(id),
-    FOREIGN KEY(tournamentId) REFERENCES Tournaments(id),
+    FOREIGN KEY(teamID) REFERENCES TournamentTeams(id),
+    FOREIGN KEY(tournamentID) REFERENCES Tournaments(id),
     FOREIGN KEY(topLaner) REFERENCES Users(id),
     FOREIGN KEY(jungler) REFERENCES Users(id),
     FOREIGN KEY(midLaner) REFERENCES Users(id),

@@ -8,6 +8,7 @@ module.exports = (bot = Discord.Client) => {
 	require("../modules/playercard.js")(bot);
 	require("../modules/psadd.js")(bot);
 	require("../modules/psremove.js")(bot);
+	require("../modules/RiotAPIandSQLite3Module.js")(bot)
 
 	psGeneral = async function psGeneral(message) {
 		let messageArray = message.content.split(" ");
@@ -23,6 +24,11 @@ module.exports = (bot = Discord.Client) => {
 		if ((command === `${prefix}playercard`) || (command === `${prefix}pc`)) {
 			playerCard(message);
 			return null;
+		}
+
+		if(command === `${prefix}test`){
+			nonTourneyLeagueSQLOperation(message,messageArray)
+			return null
 		}
 
 	}
