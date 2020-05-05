@@ -31,6 +31,10 @@ module.exports = (bot = Discord.Client) => {
 			return null
 		}
 
+		if(command === `${prefix}add`){
+			addGuildMemberToDB(message)
+		}
+
 	}
 
 	return null

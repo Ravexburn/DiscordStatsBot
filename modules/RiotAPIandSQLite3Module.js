@@ -9,12 +9,6 @@ const TeemoJS = require('teemojs')
 const BotSettings = require('../botsettings.json')
 const RiotAPI = TeemoJS(BotSettings.RiotAPI)
 const LeagueChampMap = require('./leagueChampMap.json')
-const DB = new SQLite3.Database('../stats_bot.db',(err)=>{
-    if(err){
-        return console.error(err.message)
-    }
-    console.log('connected to DB')
-})
 
 // message in all the functions are expected to be strings
 // IE: !pc add league lucky
@@ -26,13 +20,12 @@ module.exports = (bot = Discord.Client) => {
     nonTourneyLeagueSQLOperation = function(message,messageArray){
         console.log('starting')
         // which module will be used based on the message string
-        const game = messageArray[1]
-        const module = messageArray[2]
+        const module = messageArray[1]
+        const game = messageArray[2]
         const ingameName = messageArray[3]
         const stringID = message.author.id
-        console.log('module: ',module)
-        console.log('game: ',game)
-        console.log('ingameName: ',ingameName)
+        console.log(module)
+        console.log(game)
 
         if(module.toLowerCase() === 'add'){
             console.log('add')
@@ -114,10 +107,42 @@ module.exports = (bot = Discord.Client) => {
 
         return obj
     }
+
+    // ideally this would be a silent function that just adds a member to the user database, for right now its going to send and use a message 
+    addGuildMemberToDB = function(message){
+        let DB = initDB()
+        // `IF (SELECT * FROM Users WHERE discordID = ${guildMemberID}) ELSE BEGIN INSERT INTO Users(discordID) values(${guildMemberID})`
+        let id = message.author.id
+        let sql = `INSERT INTO Users(discordID) 
+                   values("${id}")`
+
+        DB.run(sql,(err)=>{
+            if(err){
+                console.log(err.message)
+                return message.channel.send(err.message)
+            }
+            return message.channel.send(`Successfully joined the User Database, ID: ${id}`)
+        })
+
+        DB.close((err)=>{
+            if(err){
+                console.error(err.message)
+            }
+            console.log('DB closed')
+        })
+    }
+}
+
+function initDB(){
+    return new SQLite3.Database('./database.db',SQLite3.OPEN_READWRITE,(err)=>{
+        if(err){
+            return console.error(err.message)
+        }
+        console.log('connected to DB')
+    })
 }
 
 function addHepler(message,game,ingameName,stringID){
-    console.log('in add')
 
     if(game.toLowerCase() === "league"){
         return addLeagueInfo(message,ingameName,stringID)
@@ -125,20 +150,28 @@ function addHepler(message,game,ingameName,stringID){
 }
 
 function addLeagueInfo(message,summoner,stringID){
-    console.log('in add league function')
-    // do sql to add summoner name to Users table
-    let sql = `INSERT INTO USERS(summonerName) VALUES(${summoner}) WHERE discordID = ${stringID}`
+    let DB = initDB()
 
-    DB.run(sql,(err)=>{
+    let data = [summoner,stringID]
+    let sql = `UPDATE Users
+               SET summonerName= ? 
+               WHERE discordID = ?`
+
+    DB.run(sql,data,(err)=>{
         console.log('done')
         if(err){
             console.log(err.message)
             return message.channel.send("Something went wrong adding this summoner name. If you're updating please use update not add.")
         }
-        console.log(this)
         return message.channel.send(`League Summoner name ${summoner} successfully added.`)
     })
 
+    DB.close((err)=>{
+        if(err){
+            console.error(err.message)
+        }
+        console.log('DB closed')
+    })
 }
 
 // function addValorantInfo(message){

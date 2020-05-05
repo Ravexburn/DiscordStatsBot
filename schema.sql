@@ -1,44 +1,35 @@
 CREATE TABLE Users(
     id INTEGER PRIMARY KEY,
-    discordID BIGINT NOT NULL,
+    discordID TEXT NOT NULL UNIQUE,
     summonerName TEXT
 );
-
 CREATE TABLE ServerSettings(
     id INTEGER PRIMARY KEY,
-    discordID BIGINT NOT NULL,
     prefix TEXT
 );
-
 CREATE TABLE ModUsers(
     id INTEGER PRIMARY KEY,
-    userID BIGINT NOT NULL,
-    serverID BIGINT NOT NULL,
+    userID TEXT NOT NULL,
+    serverID TEXT NOT NULL,
     FOREIGN KEY(userID) REFERENCES Users(id),
     FOREIGN KEY(serverID) REFERENCES ServerSettings(id)
 );
-
 CREATE TABLE Tournaments(
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL
 );
-
 CREATE TABLE Teams(
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL
 );
-
--- teams in a tournament
 CREATE TABLE TournamentTeams(
     id INTEGER NOT NULL PRIMARY KEY,
     teamID INTEGER NOT NULL,
     tournamentID INTEGER NOT NULL
 );
-
--- tracks a players stats in a specific tournament
 CREATE TABLE TournamentLeagueStats(
     id INTEGER PRIMARY KEY,
-    userID BIGINT NOT NULL,
+    userID TEXT NOT NULL,
     tournamentID INTEGER NOT NULL,
     totalTournamentKills INTEGER,
     totalTournamentDeaths INTEGER,
@@ -47,20 +38,18 @@ CREATE TABLE TournamentLeagueStats(
     FOREIGN KEY (tournamentID) REFERENCES Tournaments(id),
     FOREIGN KEY (userID) REFERENCES Users(id)
 );
-
--- regular team roster
 CREATE TABLE TournamentLeagueTeams(
     id INTEGER PRIMARY KEY,
     teamId INTEGER,
     tournamentId INTEGER,
-    topLaner BIGINT,
-    jungler BIGINT,
-    midLaner BIGINT,
-    adc BIGINT,
-    support BIGINT,
-    sub1 BIGINT,
-    sub2 BIGINT,
-    sub3 BIGINT,
+    topLaner TEXT,
+    jungler TEXT,
+    midLaner TEXT,
+    adc TEXT,
+    support TEXT,
+    sub1 TEXT,
+    sub2 TEXT,
+    sub3 TEXT,
     FOREIGN KEY(teamID) REFERENCES TournamentTeams(id),
     FOREIGN KEY(tournamentID) REFERENCES Tournaments(id),
     FOREIGN KEY(topLaner) REFERENCES Users(id),
