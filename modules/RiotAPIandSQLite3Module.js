@@ -13,8 +13,6 @@ const LeagueChampMap = require('./leagueChampMap.json')
 // message in all the functions are expected to be strings
 // IE: !pc add league lucky
 
-
-
 module.exports = (bot = Discord.Client) => {
 
     nonTourneyLeagueSQLOperation = function(message,messageArray){
@@ -37,7 +35,7 @@ module.exports = (bot = Discord.Client) => {
         }
 
         if(module.toLowerCase() === 'remove'){
-            return removeHepler(message,game,ingameName,stringID)
+            return removeHepler(message,game,stringID)
         }
         return null
     }
@@ -178,45 +176,80 @@ function addLeagueInfo(message,summoner,stringID){
 
 // }
 
-// function updateHepler(messageArray,stringID){
-//     const game = messageArray[2]
+function updateHepler(message,game,ingameName,stringID){
 
-//     if(game.toLowerCase() === "league"){
-//         updateLeagueInfo(messageArray,stringID)
-//     }
-// }
+    if(game.toLowerCase() === "league"){
+        updateLeagueInfo(message,ingameName,stringID)
+    }
+}
 
-// function updateLeagueInfo(messageArray,stringID){
-//     const summoner = messageArray[3]
-//     // do sql to update summoner name in Users
-// }
+function updateLeagueInfo(message,ingameName,stringID){
+    let DB = initDB()
+
+    let data = [ingameName,stringID]
+    let sql = `UPDATE Users
+               SET summonerName = ?
+               WHERE discordID = ?`
+
+    DB.run(sql,data,(err)=>{
+        if(err){
+            console.log(err.message)
+            return message.channel.send("Something went wrong updating this summoner name.")
+        }
+        return message.channel.send('League Summoner name successfully updated.')
+    })
+
+    DB.close((err)=>{
+        if(err){
+            console.error(err.message)
+        }
+        console.log('DB closed')
+    })
+}
 
 // function updateValorantInfo(message){
     
 // }
 
-// function removeHepler(messageArray,stringID){
-//     const game = messageArray[2]
+function removeHepler(message,game,stringID){
 
-//     if(game.toLowerCase() === "league"){
-//         removeLeagueInfo(stringID)
-//     }
-// }
+    if(game.toLowerCase() === "league"){
+        removeLeagueInfo(message,stringID)
+    }
+}
 
-// function removeLeagueInfo(stringID){
-//     //do sql to remove from table
-// }
+function removeLeagueInfo(message,){
+    let DB = initDB()
+
+    let data = [stringID]
+    let sql = `UPDATE Users
+               SET summonerName = NULL 
+               WHERE discordID = ?`
+
+    DB.run(sql,data,(err)=>{
+        if(err){
+            console.log(err.message)
+            return message.channel.send("Something went wrong removing this summoner name.")
+        }
+        return message.channel.send(`League Summoner name ${summoner} successfully removed.`)
+    })
+
+    DB.close((err)=>{
+        if(err){
+            console.error(err.message)
+        }
+        console.log('DB closed')
+    })
+}
 
 // function removeValorantInfo(message){
     
 // }
 
 // these will only work if person is in database
-// function LeagueDBSearch(messageArray){
-//     const summoner = messageArray[3]
-
-//     // do sql to search
-// }
+function LeagueDBSearch(message,summoner,stringIDy){
+    // do sql to search
+}
 
 // function ValorantSearch(){
 
