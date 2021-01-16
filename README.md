@@ -8,4 +8,4 @@ To be used in Tournaments to keep track of personal team and player stats.
 - Will be able to handle/track user inputed game score data for players
 - Keep stats for a team of players
 
-Written by Rave#0737 and Edwin#0214 on Discord
+Written by Rave#0737 and Edwin#9454 on Discord
