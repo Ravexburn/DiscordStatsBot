@@ -1,21 +1,17 @@
 const Discord = require("discord.js");
-const champIcon = require("../modules/lchamps.json");
 
 module.exports = (bot = Discord.Client) => {
- 
 
-playerCard = async function playerCard(message){
-	let embed = new Discord.RichEmbed()
-	.setTitle("Player Card")
-	.setColor("#104F74")
-	.setThumbnail(lchamps.Aatrox)
-	.addField("Current Rank", "<:goldemotemin:702929243872690347> Gold II", true)
-	.addField("Main Role", "<:top_lane:702930006745284680> Top", true)
-	.addField("Current Team", "<:itzybitzyspiders:702934770920849428> ItzyBitzySpiders", true)
-	.addField("Previous Teams", "<:ptp:702937120482000997> PTP", true)
-	message.channel.send(embed);
-}
-
-
+    playCard = async function playCard(message, prefix) {
+        let embed = new Discord.MessageEmbed();
+        embed.setTitle(`Player Card for ${message.author.username}`);
+        embed.setThumbnail(`${message.author.displayAvatarURL()}`);
+        embed.addField('Player Name', `db name call`, true);
+        embed.addField('Current Team', `db team name call`, true);
+        embed.addField('Average Stats', 'db kill call / db assist call / db death call', true);
+        embed.addField('Most Played Champion', 'db champ amount', true);
+        message.channel.send(embed);
+        return null;
+    }
 
 };

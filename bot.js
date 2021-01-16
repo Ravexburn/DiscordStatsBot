@@ -1,27 +1,20 @@
 const Discord = require("discord.js");
-// ignored below
-const botSettings = require("./botsettings.json");
-const bot = new Discord.Client({ disableEveryone: true, messageCacheMaxSize: 100 });
-// appending botsettings json to bot object 
+const botSettings = require("./botSet.json");
+const bot = new Discord.Client({ disableMentions: 'everyone' });
 bot.botSettings = botSettings;
 
-//Required Files
+require("./handlers/msgHnd.js")(bot);
 
-require("./handlers/messagehnd.js")(bot);
+bot.on('ready', async () => {
+    // Logs ready
+    console.log('Ready');
+    // Sets bot status
+    bot.user.setActivity(`${botSettings.prefix}ps for list of commands`);
 
-bot.on("ready", async () => {
-	console.log('Ready');
-	try {
-		let link = await bot.generateInvite();
-		console.log(link);
-	} catch (error) {
-		console.log(error.stack);
-	}
-	bot.user.setActivity(`${botSettings.prefix}ps for list of commands`);
 });
 
 bot.on('message', async message => {
-	msgHandler(message);
+    msgHnd(message);
 });
 
 bot.login(botSettings.token);
